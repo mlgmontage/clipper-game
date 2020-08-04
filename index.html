@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./CDN/uikit.min.css" />
     <title>Clipper game</title>
   </head>
   <body>
-    <h2>Clipper</h2>
-    <div class="container">
+    <div class="uk-container">
+      <h2>Clipper</h2>
       <!-- Monitor -->
       <div class="monitor">
         <div>
@@ -23,18 +24,33 @@
           <span id="budget">100</span>
         </div>
         <div>
+          <b>AutoClipper: </b>
+          <span id="autoClipper"></span>
+        </div>
+        <div>
           <b>Wire:</b>
           <span id="wire">500</span>
         </div>
       </div>
       <!-- end of Monitor -->
-      <br />
+      <hr class="uk-divider-icon" />
       <!-- Controller -->
       <div class="controller">
-        <button id="makeClipper">Make Clipper</button>
-        <button id="buyWire">Buy Wire</button>
+        <button class="uk-button uk-button-primary" id="makeClipper">
+          Make Clipper
+        </button>
+        <button
+          class="uk-button uk-button-secondary"
+          uk-tooltip="100 inch wire costs 10$"
+          id="buyWire"
+        >
+          Buy Wire
+        </button>
       </div>
     </div>
+
+    <script src="./CDN/uikit.min.js"></script>
+    <script src="./CDN/uikit-icons.min.js"></script>
     <script src="./main.js"></script>
   </body>
 </html>
