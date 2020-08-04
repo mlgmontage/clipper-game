@@ -14,24 +14,30 @@ const autoClipperElm = document.querySelector("#autoClipper");
 // DOM controllers
 const makeClipperElm = document.querySelector("#makeClipper");
 const buyWireElm = document.querySelector("#buyWire");
+const buyAutoClipperElm = document.querySelector("#buyAutoClipper");
 
 // Event
 makeClipperElm.addEventListener("click", () => {
-  clipper += 1;
-  wire -= 3;
+  makePaperClip();
+});
+
+buyAutoClipperElm.addEventListener("click", () => {
+  // NOTE: magic constant
+  // 1 AutoClipper costs 50$
+  if (budget < 50) {
+    UIkit.notification("You don't have enough money to buy AutoClipper");
+  } else {
+    autoClipper += 1;
+    budget -= 50;
+  }
   update();
 });
 
 buyWireElm.addEventListener("click", () => {
   // NOTE: magic constant
   // 100 inch of wire costs 10$
-  if (budget <= 0 || budget < 10) {
-    UIkit.notification({
-      message: "You don't have enough money to buy wire",
-      status: "warning",
-      pos: "top-right",
-      timeout: 3000,
-    });
+  if (budget < 10) {
+    UIkit.notification("You don't have enough money to buy wire");
   } else {
     wire += 100;
     budget -= 10;
@@ -41,13 +47,29 @@ buyWireElm.addEventListener("click", () => {
 
 // Game loop
 setInterval(() => {
+  // Handling autoclippers
+  if (autoClipper > 0) {
+    makePaperClip(autoClipper);
+  }
+
+  // Selling paperclips
   if (clipper <= 0) {
   } else {
     clipper -= 1;
     budget += cost;
     update();
   }
-}, 1000);
+}, 500);
+
+// Utils
+const makePaperClip = (amount = 1) => {
+  if (wire > amount * 3) {
+    clipper += amount;
+    wire -= amount;
+  }
+
+  update();
+};
 
 const update = () => {
   // Udate
